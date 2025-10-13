@@ -1,6 +1,6 @@
 **$DEATH Project: The Blockchain Purge**
 
-(Proceed to DEATH Page, after reading this intro)
+
 
 (Imagine a sigil-fused scythe cleaving through Bitcoin and Ethereum chains here—custom art incoming for the initiated.)
 
