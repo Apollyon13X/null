@@ -1,0 +1,24 @@
+Purpose:
+null monitors user activity across the decentralized ecosystem, detecting fraud/illegal actions and gathering data for z340.Functionality:  Tracks v01d nodes, CHAOS Document access, $DEATH transactions.  
+Logs node IDs, timestamps, history; flags suspicious activity.  
+Outputs to z340.
+
+Implementation:  On each node:  bash
+
+sudo apt install auditd
+sudo auditctl -w /var/lib/ipfs -p rwxa -k v01d_monitor
+
+Log script:  bash
+
+#!/bin/bash
+LOG_FILE=~/null_logs.log
+NODE_ID=$(ipfs id -f "<id>")
+echo "$(date) - Node: $NODE_ID - Activity: $(ps aux | grep death_agent)" >> $LOG_FILE
+ipfs add $LOG_FILE
+
+Integration:  v01d/CHAOS: Node/KB tracking.  
+Death_Agent/$DEATH: AI/token interactions.  
+z340: Fraud escalation.
+
+Security:  IPFS logs for resistance.
+
