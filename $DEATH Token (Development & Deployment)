@@ -1,0 +1,46 @@
+Purpose:
+$DEATH Token (The Blockchain Purge) is an ERC-20 token incentivizing fraud detection, with rewards for scam submissions and governance.Specifications:  Name: The Blockchain Purge  
+Symbol: $DEATH  
+Total Supply: 13,000,000,000  
+Decimals: 12  
+Allocation: 50% Rewards, 30% Dev Fund, 20% Liquidity  
+Utility: Staking, rewards, governance; advanced access at 133,000 $DEATH.
+
+Development:  Contract Code:  solidity
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract DEATHToken {
+    string public name = "Degens Enraged Against The Hoaxes";
+    string public symbol = "DEATH";
+    uint8 public decimals = 12;
+    uint256 public totalSupply = 13000000000 * 10**12;
+    mapping(address => uint256) public balanceOf;
+    constructor() { balanceOf[msg.sender] = totalSupply; }
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(balanceOf[msg.sender] >= value, "Insufficient balance");
+        balanceOf[msg.sender] -= value;
+        balanceOf[to] += value;
+        emit Transfer(msg.sender, to, value);
+        return true;
+    }
+}
+
+Tools: solc (compile), Slither/Mythril (audit).
+
+Deployment (In Progress):  Compile:  bash
+
+solc --bin DEATHToken.sol
+
+Test/Deploy:  bash
+
+npx hardhat run scripts/deploy.js --network mainnet
+
+Integration:  v01d: Token ops across nodes.  
+CHAOS Document: Specs on IPFS.  
+Death_Agent: Transaction analysis.  
+null/z340: Fraud monitoring.
+
+Security:  Audited; decentralized via IPFS.
+
