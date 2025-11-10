@@ -79,3 +79,7 @@ Watchlist in IPFS (CHAOS Document).
 
 Deployment (In Development) Deploys to Ethereum mainnet. $DEATH Token compiled with Solidity, audited via Slither/Mythril, deployed with Hardhat. Death_Agent hosted on v01d nodes with IPFS pinning.Conclusion The Death Project combats blockchain fraud via decentralized community participation, advanced AI, and robust security. In stealth mode, access is limited—contact the team for details.Contact 
 
+CONTACT:
+Telegram: @GhostOvEl
+WA: +381691333478
+email: death.project.eth@gmail.com
