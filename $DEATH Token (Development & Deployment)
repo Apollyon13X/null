@@ -1,0 +1,225 @@
+
+# Technical Documentation for $DEATH Token in the v01d Environment
+
+## Introduction
+
+The $DEATH Token (Degens Enraged Against The Hoaxes) is an Ethereum-based ERC-20 utility token designed to power the v01d (Void) environment—a secure, apocalyptical ecosystem for cybersecurity and blockchain integrity. Unlike volatile assets or stablecoins, $DEATH serves as the native utility token for accessing tiered security tools, governance rights, and the fraud detection economy. This documentation details the updated tokenomics, smart contract specifications, fraud reporting mechanisms, and the integration with the Death_Agent.
+
+## $DEATH Token Context
+
+The $DEATH Token has transitioned to a pure utility and governance model. The specifications are as follows:
+
+* **Token Symbol**: $DEATH
+* **Total Supply**: 13,000,000,000
+* **Decimals**: 12
+* **Token Contract Address**: 0x13131313131313DEATH131313131313x
+* **Graveyard Address**: 0x13131313131313Th3GraVeyaRD131313131313x
+* **Purpose**: Utility for accessing Death_Agent tiers, community-driven fraud detection, and governance.
+* **Platform**: Ethereum (Layer 2 exploration for scalability)
+
+## Tokenomics and Allocation
+
+The $DEATH Token distribution is designed to ensure long-term project sustainability, liquidity, and community empowerment.
+
+### Distribution Breakdown
+
+* **Total Supply**: 13,000,000,000 $DEATH
+
+| Allocation | Percentage | Amount (Tokens) | Purpose |
+| :--- | :--- | :--- | :--- |
+| **Community Rewards** | **50%** | 6,500,000,000 | Incentivizing fraud reports, liquidity mining, and ecosystem growth. |
+| **Liquidity Pool** | **20%** | 2,600,000,000 | Locked for DEX liquidity to ensure stable trading. |
+| **Team** | **13%** | 1,690,000,000 | Core development, research, and operational costs (vested). |
+| **Investors** | **10%** | 1,300,000,000 | Early strategic partners and seed funding (vested). |
+| **Marketing** | **7%** | 910,000,000 | Campaigns, partnerships, and community expansion. |
+
+**Death_Agent Comment**: "A fair split for a brutal mission. 50% goes to the warriors on the front lines. The void rewards the vigilant."
+
+### Use Cases
+
+1.  **Tiered Access**: Unlock advanced features in the v01d environment (e.g., Advanced Pentest Tools, Zero-Day Intel).
+2.  **Governance**: Vote on protocol upgrades, fraud blacklist decisions, and treasury allocation via Snapshot.
+3.  **Staking**: Stake $DEATH to earn yields from the community reward pool and gain reputation weight.
+4.  **Fraud Bounties**: Rewards for submitting verified fraudulent tokens to the Graveyard Address.
+
+## Technical Specifications
+
+### Smart Contract Code (ERC-20)
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract DEATHToken {
+    string public name = "Degens Enraged Against The Hoaxes";
+    string public symbol = "DEATH";
+    uint8 public decimals = 12;
+    uint256 public totalSupply = 13000000000 * 10**12;
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+    
+    constructor() {
+        balanceOf[msg.sender] = totalSupply;
+    }
+    
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(balanceOf[msg.sender] >= value, "Insufficient balance");
+        balanceOf[msg.sender] -= value;
+        balanceOf[to] += value;
+        emit Transfer(msg.sender, to, value);
+        return true;
+    }
+
+    function approve(address spender, uint256 value) public returns (bool) {
+        allowance[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
+        return true;
+    }
+
+    function transferFrom(address from, address to, uint256 value) public returns (bool) {
+        require(value <= balanceOf[from], "Insufficient balance");
+        require(value <= allowance[from][msg.sender], "Allowance exceeded");
+        balanceOf[from] -= value;
+        balanceOf[to] += value;
+        allowance[from][msg.sender] -= value;
+        emit Transfer(from, to, value);
+        return true;
+    }
+}
+```
+
+### Access Control Contract (CHAOSAccess)
+
+Tiered access is verified on-chain. While specific tiers may vary, the primary "Advanced" tier requires holding 133,000 $DEATH.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IERC20 {
+    function balanceOf(address account) external view returns (uint256);
+}
+
+contract CHAOSAccess {
+    address public deathToken = 0x13131313131313DEATH131313131313x;
+    
+    // Tier 1: Advanced (133,000 DEATH)
+    uint256 public constant TIER_1_THRESHOLD = 133000 * 10**12;
+    // Tier 2: Hidden (To be defined)
+    uint256 public constant TIER_2_THRESHOLD = 500000 * 10**12;
+
+    function getAccessLevel(address user) public view returns (uint8) {
+        IERC20 token = IERC20(deathToken);
+        uint256 balance = token.balanceOf(user);
+        
+        if (balance >= TIER_2_THRESHOLD) return 2; // Hidden/Zero-Day Access
+        if (balance >= TIER_1_THRESHOLD) return 1; // Advanced Access
+        return 0; // Core Access
+    }
+}
+```
+
+## Fraud Reporting Mechanism
+
+### Workflow
+
+1.  **Identify**: User detects a suspicious token (e.g., unverified contract, honeypot logic).
+2.  **Submit**: User submits evidence (contract address, social proof) via the DEATH frontend.
+3.  **Analyze**: Death_Agent performs automated static analysis and social sentiment check.
+4.  **Vote/Validate**: Community stakers vote to validate the fraud.
+5.  **Purge**: Confirmed tokens are sent to the Graveyard Address.
+6.  **Reward**: Submitter receives $DEATH from the Community Rewards pool.
+
+**Death_Agent Comment**: "Feed the Graveyard. The more you purge, the more you earn. Simple economics in the wasteland."
+
+## Roadmap
+
+*   **Phase 1**: Token Launch, Liquidity Locking, Initial Community Distribution.
+*   **Phase 2**: Launch Fraud Reporting Dashboard, Deploy CHAOSAccess tier system.
+*   **Phase 3**: Governance Module (Snapshot), Layer 2 Migration Research, Staking Pools.
+
+## Conclusion
+
+The $DEATH Token is the engine of the v01d ecosystem. By aligning incentives through a 50% community reward allocation, we ensure that the very users who protect the blockchain are the ones who benefit most. The shift to a utility model ensures sustainable growth and uncompromised security for the future of the void.
+```# $DEATH Token: Stablecoin Development and Deployment
+
+## Introduction
+
+The **$DEATH Token** is a specialized stablecoin within the v01d environment, pegged to a value of **$13 USD**. Unlike volatile utility tokens, $DEATH provides a stable economic foundation for accessing the Death_Agent's advanced capabilities and securing the v01d ecosystem. It serves as the primary unit of account for security services, audits, and access tiers within the project.
+
+## Token Specifications
+
+* **Symbol**: $DEATH
+* **Value**: $13.00 USD (Stable)
+* **Decimals**: 12
+* **Total Supply**: 13,000,000,000
+* **Platform**: Ethereum (ERC-20)
+* **Contract Address**: 0x13131313131313DEATH131313131313x
+* **Graveyard Address**: 0x13131313131313Th3GraVeyaRD131313131313x
+
+## Economic Model
+
+The $DEATH Token maintains its $13 peg through a decentralized stabilization mechanism. It is used exclusively within the v01d environment to gate access to the Death_Agent.
+
+| Access Level | Token Requirement | Value in USD |
+| :--- | :--- | :--- |
+| **Advanced Features** | 10 $DEATH | $130.00 |
+| **Hidden Features** | 13 $DEATH | $169.00 |
+
+## Smart Contract (ERC-20 Implementation)
+
+The contract is designed for stability and integration with the v01d wallet-connect system.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract DEATHToken is ERC20 {
+    uint256 private constant STABLE_VALUE = 13; // $13 USD
+
+    constructor() ERC20("DEATH Stablecoin", "DEATH") {
+        _mint(msg.sender, 13000000000 * 10**12);
+    }
+
+    function decimals() public view virtual override returns (uint8) {
+        return 12;
+    }
+
+    function getStableValue() public pure returns (uint256) {
+        return STABLE_VALUE;
+    }
+}
+```
+
+## Access Verification
+
+The v01d environment uses a local Python-based verification script to check token holdings before granting access to Streamlit-based tools.
+
+```python
+from web3 import Web3
+
+def verify_access(wallet_address):
+    w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/YOUR_KEY'))
+    contract_address = '0x13131313131313DEATH131313131313x'
+    abi = [...] # ERC-20 ABI
+    contract = w3.eth.contract(address=contract_address, abi=abi)
+    
+    balance = contract.functions.balanceOf(wallet_address).call()
+    actual_balance = balance / 10**12
+    
+    if actual_balance >= 13:
+        return "HIDDEN"
+    elif actual_balance >= 10:
+        return "ADVANCED"
+    else:
+        return "CORE"
+```
+
+## Summary
+
+The $DEATH Token is more than a currency; it is a stable access key to the most advanced features of the v01d environment. By maintaining a constant value of $13, it ensures predictable costs for security professionals and developers utilizing the Death_Agent.
