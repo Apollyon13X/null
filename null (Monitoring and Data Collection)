@@ -1,0 +1,41 @@
+null: Monitoring and Data Collection
+Overview
+
+The null component is the silent observer of the v01d environment. It handles network-wide monitoring, dependency management, and data logging to ensure system integrity and security.
+Core Functions
+1. Dependency Management
+
+To maintain a lean security posture, null executes scripts to remove non-essential dependencies that could introduce vulnerabilities.
+
+Cross-Platform Commands:
+
+    Linux/macOS:
+
+    # Remove unused packagessudo apt-get autoremove -ysudo apt-get clean
+
+    Windows:
+
+    # Clean WinSxSDism.exe /online /Cleanup-Image /StartComponentCleanup
+
+2. Network Monitoring
+
+Monitors the health of v01d nodes and Ethereum RPC connections.
+
+    Metrics: Latency, Block height sync, Node uptime.
+    Alerts: Triggers notification to the z340 protocol if anomalies are detected.
+
+3. Data Collection for $DEATH Token
+
+Collects data relevant to the token economy:
+
+    Transaction Logs: Monitors transfers to/from the Graveyard Address.
+    Reward Distribution: Logs claims from the 50% Community Reward pool.
+
+Integration
+
+    Input: Raw system and blockchain data.
+    Output: Structured logs fed into the CHAOS Document and z340 for escalation.
+
+Security Protocol
+
+All data collected by null is hashed and stored locally or on IPFS to ensure immutability and privacy.
